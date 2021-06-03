@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wait_screen_background">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transition_gradient_black"
+        android:paddingBottom="@dimen/margin11">
+
+        <TextView
+            android:fontFamily="@font/raleway_black"
+
+            android:id="@+id/title_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/title_2"
+            android:layout_marginStart="@dimen/margin5"
+            android:layout_marginEnd="100dp"
+            android:gravity="bottom"
+            android:text="@string/description_wait_screen1"
+            android:textColor="@color/white"
+            android:textSize="55sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:fontFamily="@font/raleway_black"
+            android:id="@+id/title_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/margin5"
+            android:layout_marginEnd="100dp"
+            android:gravity="bottom"
+            android:text="@string/description_wait_screen2"
+            android:textColor="@color/white"
+            android:textSize="55sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

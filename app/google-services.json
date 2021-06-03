@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "400106397239",
+    "project_id": "fogo-eacf3",
+    "storage_bucket": "fogo-eacf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400106397239:android:884f27aeefa9a6c18169b2",
+        "android_client_info": {
+          "package_name": "com.example.fogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400106397239-qpm1hsupiga0llcftgfrr6lu6q0oclhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfGs0ekrCdP-ouqu3oKUIwx_l2KoFcsaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400106397239-qpm1hsupiga0llcftgfrr6lu6q0oclhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
