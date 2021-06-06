@@ -45,7 +45,7 @@
                 android:background="@drawable/custom_edit_text_search"
                 android:drawableStart="@drawable/search_icon_gray"
                 android:drawablePadding="@dimen/margin2"
-                android:hint="@string/description_wait_screen4"
+                android:hint="Type name house to find"
                 android:paddingStart="@dimen/margin2"
                 android:textCursorDrawable="@color/blue"
                 android:textSize="@dimen/text_size0" />
@@ -209,7 +209,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/top_bar"
             android:layout_marginHorizontal="@dimen/margin3"
-            android:layout_marginBottom="58dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="@dimen/margin2" />
 
         <ProgressBar

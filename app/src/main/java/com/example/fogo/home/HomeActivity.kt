@@ -2,6 +2,8 @@ package com.example.fogo.home
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -15,11 +17,20 @@ import com.example.fogo.utils.HandlerManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
+
+
+//    private val homeFragment = HomeFragment.newInstance()
+//    private val searchFragment = SearchFragment.newInstance()
+//    private val favoriteFragment = FavoriteFragment.newInstance()
+//    private val profileFragment = HomeFragment.newInstance()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initView()
         setAction()
+
     }
 
     private fun setAction() {
@@ -77,12 +88,22 @@ class HomeActivity : AppCompatActivity() {
             true
         }
         bottomNavigationView.selectedItemId = R.id.home
+
+
     }
 
     private fun initView() {
+
         bottomNavigationView = findViewById(R.id.navigation)
         shadowBottom = findViewById(R.id.shadow_bottom)
 
+    }
+    fun saveEmail(email: String) {
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("email", email)
+            apply()
+        }
     }
 
     lateinit var bottomNavigationView: BottomNavigationView
@@ -100,8 +121,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Log.d(TAG, "onBackPressed: " +supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1).name
-          + supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 2).name)
+//        Log.d(TAG, "onBackPressed: " +supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1).name
+//          + supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 2).name)
         when (supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1).name) {
             "detail room" -> {
                 supportFragmentManager.popBackStack()
@@ -112,6 +133,7 @@ class HomeActivity : AppCompatActivity() {
             }
             "search" -> {
                 super.onBackPressed()
+                handler.post(showNavigation)
             }
             "home" -> {
                 val builder = AlertDialog.Builder(this@HomeActivity)

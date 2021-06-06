@@ -119,7 +119,7 @@ class DetailRoomFragment : Fragment() {
         roomImage.setImageResource(room.getIconResID())
         userNumber.text = room.phone
         roomName.text = room.getRoomName()
-        roomAddress.text = room.getRoomAddress()
+        roomAddress.text = room.formatAddress()
         roomPrice.text = "$ " + room.price
         roomAcreage.text = room.acreage
     }

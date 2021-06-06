@@ -1,15 +1,16 @@
 package com.example.fogo.data.model
 
 import com.example.fogo.R
+import java.io.Serializable
 
 class CategoryRoom(
     var id: String
-) {
+): Serializable {
 
     fun getCityName() : String{
         return when(id){
             "1581130" -> "Ha Noi"
-            "1580541" -> "Hoi An"
+            "6058560" -> "London"
             "1580142" -> "Hung Yen"
             "1580410" -> "Ha Long"
             "1566346" -> "Thai Binh"

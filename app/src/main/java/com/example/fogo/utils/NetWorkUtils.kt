@@ -8,7 +8,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import kotlin.math.roundToInt
 
-public class NetWorkUtils {
+ class NetWorkUtils {
 
     companion object {
         @JvmStatic
@@ -50,7 +50,7 @@ public class NetWorkUtils {
         fun jsonToRoomCategory(json: String?): MutableList<CategoryRoom> {
             val list: MutableList<CategoryRoom> = mutableListOf()
             val item = CategoryRoom("1581130")
-            val item1 = CategoryRoom("1580541")
+            val item1 = CategoryRoom("6058560")
             val item2 = CategoryRoom("1580142")
             val item3 = CategoryRoom("1580410")
             val item4 = CategoryRoom("1566346")

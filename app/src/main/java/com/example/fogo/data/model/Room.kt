@@ -30,10 +30,10 @@ class Room
     fun formatAddress() : String{
         return when(address){
             "Hanoi" -> "Ha Noi"
-            "Hoian" -> "Hoi An"
-            "Hungyen" -> "Hung Yen"
-            "Halong" -> "Ha Long"
-            "Thaibinh" -> "Thai Binh"
+            "London" -> "London"
+            "Hung Yen" -> "Hung Yen"
+            "Ha Long" -> "Ha Long"
+            "Thai Binh" -> "Thai Binh"
             else -> "CityName"
         }
     }

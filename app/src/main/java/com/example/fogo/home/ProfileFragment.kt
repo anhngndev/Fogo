@@ -1,10 +1,12 @@
 package com.example.fogo.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +50,7 @@ class ProfileFragment : Fragment() {
     private lateinit var mutableListTools: MutableList<MenusModel>
     private lateinit var mutableListMarkets: MutableList<MenusModel>
     private lateinit var menusAdapterTest: MenusAdapterTest
+    private lateinit var edittextEmail: EditText
 
     private fun setAction() {
         binding.tvLogout.setOnClickListener {
@@ -73,10 +76,17 @@ class ProfileFragment : Fragment() {
         }
 
     }
+    fun getStatus(): String {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return "not email"
+        return sharedPref.getString("email", "email").toString()
+    }
+
 
     private fun initView(view: View) {
         var staggeredGridLayoutManager = StaggeredGridLayoutManager(1, RecyclerView.VERTICAL)
         recyclerViewBase = view.findViewById(R.id.recycler_view_1)
+        edittextEmail = view.findViewById(R.id.search_edit_text)
+        edittextEmail.hint = getStatus()
 
         mutableListBase = mutableListOf()
         mutableListBase.add(MenusModel(R.drawable.icons_8_alarm, "Alerts"))

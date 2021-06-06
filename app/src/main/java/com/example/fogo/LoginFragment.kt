@@ -1,8 +1,10 @@
 package com.example.fogo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,8 +78,8 @@ class LoginFragment : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(mail.toString(), pass.toString())
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            val intent = Intent(activity, HomeActivity::class.java)
-                            intent.putExtra("mail", mail)
+                            val intent = Intent(requireActivity(), HomeActivity::class.java)
+                            saveEmail("email")
                             startActivity(intent)
                         }
                     }
@@ -104,6 +106,8 @@ class LoginFragment : Fragment() {
         return true
     }
 
+
+
     companion object {
 
         @JvmStatic
@@ -113,5 +117,13 @@ class LoginFragment : Fragment() {
 
                 }
             }
+    }
+
+    fun saveEmail(email: String) {
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putString("email", email)
+            apply()
+        }
     }
 }

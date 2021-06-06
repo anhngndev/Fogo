@@ -84,6 +84,14 @@
         <item>Hai Phong</item>
         <item>Da Nang</item>
     </string-array>
+
+    <string-array name="city_name">
+        <item>Ha Noi</item>
+        <item>London</item>
+        <item>Hung Yen</item>
+        <item>Thai Binh</item>
+        <item>Ha Long</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

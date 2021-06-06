@@ -1,5 +1,6 @@
 package com.example.fogo.home
 
+import android.content.ContentValues.TAG
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -194,7 +195,18 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     }
 
     override fun onItemClick(index: Int, roomInformation: CategoryRoom) {
-        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container, SearchFragment.newInstance())
+//
+
+        val searchFragment = SearchFragment.newInstance()
+        val bundle2 = Bundle()
+
+        bundle2.putSerializable("detail room", roomInformation)
+//
+        searchFragment.arguments = bundle2
+        handler.postDelayed(hideNavigation, 100)
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, searchFragment)
             .addToBackStack("search").commit()
     }
 }

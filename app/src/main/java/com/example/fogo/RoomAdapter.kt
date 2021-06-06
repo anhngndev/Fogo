@@ -14,6 +14,7 @@ class RoomAdapter (
     var roomMutableList: MutableList<Room>,
     var callback: RoomAdapter.Callback,
     var type: Int
+
 ) : RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
 

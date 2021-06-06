@@ -1,6 +1,5 @@
 package com.example.fogo
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
