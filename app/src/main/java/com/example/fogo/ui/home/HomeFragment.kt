@@ -1,7 +1,5 @@
-package com.example.fogo.home
+package com.example.fogo.ui.home
 
-import android.content.ContentValues.TAG
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -11,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.fogo.R
@@ -21,6 +22,7 @@ import com.example.fogo.data.model.CategoryRoom
 import com.example.fogo.data.model.Room
 import com.example.fogo.data.source.remote.HttpRequestMethod
 import com.example.fogo.data.source.remote.HttpRequestTask
+import com.example.fogo.ui.search.SearchFragment
 import com.example.fogo.utils.NetWorkUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -48,9 +50,6 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
-
-        handler.post(getData)
-
         setAction()
     }
 
@@ -81,8 +80,6 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     private val popEnter = R.animator.fade_in
     val popExit = R.animator.slide_out
 
-//    lateinit var roomCategoryAdapter: RoomCategoryAdapter
-
     private fun initView(view: View) {
         recyclerViewCategory = view.findViewById(R.id.room_category_recycler_view)
         recyclerViewSuggest = view.findViewById(R.id.recycler_view)
@@ -92,6 +89,8 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
         listRoom = mutableListOf()
         listCategoryRoom = mutableListOf()
 
+        getRoomData()
+
         val staggeredGridLayoutManager = StaggeredGridLayoutManager(1, RecyclerView.HORIZONTAL)
         val staggeredGridLayoutManager1 = StaggeredGridLayoutManager(1, RecyclerView.HORIZONTAL)
 
@@ -99,7 +98,10 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
         recyclerViewCategory.layoutManager = staggeredGridLayoutManager1
 
         roomAdapterSuggest = RoomAdapter(listRoom, this, 0)
-        roomCategoryAdapter = RoomCategoryAdapter(listCategoryRoom, this)
+
+        roomCategoryAdapter = RoomCategoryAdapter()
+        roomCategoryAdapter.roomMutableList = listCategoryRoom
+        roomCategoryAdapter.callback = this
 
         recyclerViewSuggest.adapter = roomAdapterSuggest
         recyclerViewCategory.adapter = roomCategoryAdapter
@@ -107,28 +109,6 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     }
 
     private fun setAction() {
-//        search.setOnClickListener {
-//
-//            val navBar: BottomNavigationView? = activity?.findViewById(R.id.navigation)
-////            navBar?.visibility = View.VISIBLE
-//            navBar?.selectedItemId = R.id.search
-//
-//
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.container, SearchFragment.newInstance(), "search")
-//                ?.addToBackStack("search")?.commit()
-//
-//        }
-
-//        search.setOnFocusChangeListener { view, b ->
-//            search.isEnabled = false
-//            val navBar: BottomNavigationView? = activity?.findViewById(R.id.navigation)
-//            navBar?.selectedItemId = R.id.search
-//
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.container, SearchFragment.newInstance(), "search")
-//                ?.addToBackStack("search")?.commit()
-//        }
 
     }
 
@@ -151,24 +131,17 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     }
 
     override fun onItemClick(index: Int, roomInformation: Room) {
+//
+//        val detailRoomFragment = DetailRoomFragment.newInstance()
 
-        val detailRoomFragment = DetailRoomFragment.newInstance()
-        val bundle = Bundle()
+//        val bundle = Bundle()
 
-        bundle.putSerializable("detail room", roomInformation)
-        bundle.putString("name", roomInformation.getRoomName())
-        detailRoomFragment.arguments = bundle
+//        bundle.putSerializable("detail room", roomInformation)
+//        bundle.putString("name", roomInformation.getRoomName())
+//        detailRoomFragment.arguments = bundle
 
-        handler.postDelayed(hideNavigation, 100)
-
-        activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(
-            R.animator.slide_up,
-            exit,
-            popEnter,
-            R.animator.slide_down
-        )
-            ?.replace(R.id.container, detailRoomFragment, "detail room")
-            ?.addToBackStack("detail room")?.commit()
+        val bundle = bundleOf("detail_room" to roomInformation)
+        findNavController().navigate(R.id.action_homeFragment_to_detailRoomFragment, bundle)
     }
 
     override fun onFavoriteClick(index: Int, roomInformation: Room) {
@@ -195,18 +168,7 @@ class HomeFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callback,
     }
 
     override fun onItemClick(index: Int, roomInformation: CategoryRoom) {
-//
-
-        val searchFragment = SearchFragment.newInstance()
-        val bundle2 = Bundle()
-
-        bundle2.putSerializable("detail room", roomInformation)
-//
-        searchFragment.arguments = bundle2
-        handler.postDelayed(hideNavigation, 100)
-
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, searchFragment)
-            .addToBackStack("search").commit()
+        val bundle = bundleOf("detail_room" to roomInformation)
+        findNavController().navigate(R.id.action_homeFragment_to_searchFragment, bundle)
     }
 }

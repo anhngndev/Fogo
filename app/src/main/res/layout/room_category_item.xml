@@ -1,35 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="84dp"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.fogo.data.model.CategoryRoom" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="itemListener"
+            type="com.example.fogo.RoomCategoryAdapter.Callback" />
+
+
+    </data>
 
     <RelativeLayout
-        android:layout_width="100dp"
-        android:layout_marginEnd="@dimen/margin2"
+        android:layout_width="99dp"
         android:layout_height="wrap_content">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_centerHorizontal="true"
-        android:id="@+id/category_image"
-        android:layout_width="45dp"
-        android:scaleType="centerCrop"
-        android:layout_height="45dp"
-        android:src="@drawable/user1"
-        app:riv_corner_radius="@dimen/margin2" />
+        <RelativeLayout
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin2">
 
-    <TextView
-        android:fontFamily="@font/raleway"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/category_image"
+                image="@{item}"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:onClick="@{()-> itemListener.onItemClick(position,item)}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user1"
+                app:riv_corner_radius="@dimen/margin2" />
 
-        android:id="@+id/category_name"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@id/category_image"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/logo1"
-        android:textColor="@color/black_line"
-        android:textSize="@dimen/text_size0" />
+            <TextView
+                android:id="@+id/category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_below="@id/category_image"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/raleway"
+                android:gravity="center"
+                android:text="@{item.cityName}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size0" />
+        </RelativeLayout>
+
     </RelativeLayout>
-
-</RelativeLayout>
+</layout>

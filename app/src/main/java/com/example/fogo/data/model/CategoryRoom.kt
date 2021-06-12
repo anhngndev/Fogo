@@ -20,11 +20,11 @@ class CategoryRoom(
 
     fun getIconResID(): Int {
         return when (id) {
-            "1581130" -> R.drawable.item_1
-            "1580541" -> R.drawable.item_2
+            "1581130" -> R.drawable.hanoi
+            "6058560" -> R.drawable.london
             "1580142" -> R.drawable.item_3
-            "1580410" -> R.drawable.item_4
-            "1566346" -> R.drawable.item_8
+            "1580410" -> R.drawable.halong
+            "1566346" -> R.drawable.thaibinh
             else -> R.drawable.user1
         }
     }

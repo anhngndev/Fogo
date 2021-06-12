@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.fogo.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailRoomFragment"
+            app:destination="@id/detailRoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.fogo.ui.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.fogo.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailRoomFragment"
+            app:destination="@id/detailRoomFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_profile"
+        android:id="@+id/profileFragment"
+        android:name="com.example.fogo.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/detailRoomFragment"
+        android:name="com.example.fogo.ui.home.DetailRoomFragment"
+        android:label="fragment_detail_room"
+        tools:layout="@layout/fragment_detail_room" />
 </navigation>

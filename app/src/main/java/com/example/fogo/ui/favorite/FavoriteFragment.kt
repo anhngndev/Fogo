@@ -1,4 +1,4 @@
-package com.example.fogo.home
+package com.example.fogo.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

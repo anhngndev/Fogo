@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="facebook_app_id">471226393980133</string>
+    <string name="fb_login_protocol_scheme">fb471226393980133</string>
+
     <string name="app_name">Fogo</string>
     <string name="sign_in_big">LOG IN</string>
     <string name="sign_in_normal">Log in</string>

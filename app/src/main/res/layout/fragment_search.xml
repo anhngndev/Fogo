@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".home.SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/light_line"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/light_line">
 
         <RelativeLayout
             android:id="@+id/top_bar"
@@ -45,7 +45,7 @@
                 android:background="@drawable/custom_edit_text_search"
                 android:drawableStart="@drawable/search_icon_gray"
                 android:drawablePadding="@dimen/margin2"
-                android:hint="Type name house to find"
+                android:hint="Type home's name to find"
                 android:paddingStart="@dimen/margin2"
                 android:textCursorDrawable="@color/blue"
                 android:textSize="@dimen/text_size0" />
@@ -66,6 +66,7 @@
                 android:textStyle="bold" />
 
             <Spinner
+
                 android:id="@+id/city_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -76,7 +77,7 @@
                 android:entries="@array/city"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size3" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/title_price"
@@ -105,10 +106,9 @@
                 android:layout_toEndOf="@+id/title_price"
                 android:background="@null"
                 android:fontFamily="@font/raleway"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:hint="@string/price"
                 android:inputType="number"
-
                 android:minWidth="@dimen/margin8"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
@@ -136,14 +136,13 @@
                 android:id="@+id/max_price"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin8"
-
                 android:layout_below="@+id/tittle_location"
                 android:layout_marginStart="@dimen/margin1"
                 android:layout_marginTop="4dp"
                 android:layout_toEndOf="@id/between"
                 android:background="@null"
                 android:fontFamily="@font/raleway"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:hint="@string/price"
                 android:inputType="number"
                 android:minWidth="@dimen/margin8"
@@ -153,10 +152,19 @@
                 android:textSize="@dimen/text_size0"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:id="@+id/go"
+                android:layout_width="32dp"
+                android:layout_height="@dimen/margin8"
+                android:layout_below="@+id/tittle_location"
+                android:layout_marginStart="@dimen/margin1"
+                android:src="@drawable/ic_baseline_check_24"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@id/max_price" />
+
 
             <TextView
                 android:id="@+id/sum_result"
-
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_below="@+id/title_price"
@@ -209,14 +217,14 @@
             android:layout_height="match_parent"
             android:layout_below="@id/top_bar"
             android:layout_marginHorizontal="@dimen/margin3"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="@dimen/margin2" />
+            android:layout_marginTop="@dimen/margin2"
+            android:layout_marginBottom="8dp" />
 
         <ProgressBar
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/progress"/>
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package com.example.fogo.home
+package com.example.fogo.ui.home
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.fogo.R
 import com.example.fogo.data.model.Room
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DetailRoomFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +36,12 @@ class DetailRoomFragment : Fragment() {
         initView(view)
         setAction()
 
+//        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.navigation)
+//        navBar.visibility = View.GONE
+
         var args = this.arguments
-
-        val detailRoom = args?.getSerializable("detail room")
-
+        val detailRoom = args?.getSerializable("detail_room")
         fillData(detailRoom as Room)
-
         room = detailRoom
     }
 

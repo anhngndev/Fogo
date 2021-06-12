@@ -1,4 +1,4 @@
-package com.example.fogo.home
+package com.example.fogo.ui.search
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.fogo.R
@@ -19,6 +21,7 @@ import com.example.fogo.data.model.CategoryRoom
 import com.example.fogo.data.model.Room
 import com.example.fogo.data.source.remote.HttpRequestMethod
 import com.example.fogo.data.source.remote.HttpRequestTask
+import com.example.fogo.ui.home.DetailRoomFragment
 import com.example.fogo.utils.NetWorkUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -37,6 +40,8 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+//            val obj = it.getSerializable("detail_room")as CategoryRoom
+//            Log.d(TAG, "onCreate: ${obj.getCityName()}")
         }
         Log.d(TAG, "onCreate: " + "x")
     }
@@ -55,7 +60,7 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
 
         var args = this.arguments
         try {
-            val temp: CategoryRoom = args?.getSerializable("detail room") as CategoryRoom
+            val temp: CategoryRoom = args?.getSerializable("detail_room") as CategoryRoom
             room = temp
         } catch (e: Exception) {
         }
@@ -77,27 +82,12 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
             "1566346" -> {
                 spinner.setSelection(4)
             }
-
-
         }
-//        handler.post(getData)
-//        getRoomData(cityID)
-
-
-
         setAction()
-
     }
-
-
-//    override fun onResume() {
-//        super.onResume()
-//        getRoomData(cityID)
-//    }
 
     var room = CategoryRoom("1581130")
 
-    //    val navBar: BottomNavigationView = requireActivity().findViewById(R.id.navigation)
     private val DO_MAIN: String = "http://api.openweathermap.org/data/2.5/forecast/daily?id="
     private val PARAM: String = "&appid=b1a6b9d8867fa058c1a2f803e6244b14"
     var cityID: String = "1581130"
@@ -108,7 +98,9 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
     lateinit var listRoomCurrent: MutableList<Room>
     lateinit var progressBar: ProgressBar
     lateinit var search: EditText
-    lateinit var book: TextView
+    lateinit var edtMinPrice: EditText
+    lateinit var editMaxPrice: EditText
+    lateinit var imageCheck: ImageView
     lateinit var sumResult: TextView
     lateinit var spinner: Spinner
 
@@ -120,16 +112,16 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
         shadowBottom?.visibility = View.GONE
     }
 
-    var getData = Runnable {
-        getRoomData(cityID)
-    }
-
     private fun initView(view: View) {
         spinner = view.findViewById(R.id.city_spinner)
         sumResult = view.findViewById(R.id.sum_result)
         recyclerViewSuggest = view.findViewById(R.id.recycler_view)
         progressBar = view.findViewById(R.id.progress)
         search = view.findViewById(R.id.search_edit_text)
+        imageCheck = view.findViewById(R.id.go)
+        edtMinPrice = view.findViewById(R.id.min_price)
+        editMaxPrice = view.findViewById(R.id.max_price)
+
 
         listRoom = mutableListOf()
         listRoomCurrent = mutableListOf()
@@ -142,14 +134,12 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.city_name,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply  adapter to the spinner
+            adapter.setDropDownViewResource(R.layout.spinner_list)
             spinner.adapter = adapter
 
         }
-
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -167,7 +157,6 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
             }
 
         }
-
 
 //        navBar.selectedItemId = R.id.search
     }
@@ -196,6 +185,35 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
 
         })
 
+        imageCheck.setOnClickListener {
+//            val minPrice = edtMinPrice.text
+//            val maxPrice = editMaxPrice.text
+
+            checkPriceFilter()
+
+//            if (checkPriceFilter()) {
+//                findWithKey()
+//            }
+        }
+
+    }
+
+    private fun checkPriceFilter(): Boolean {
+
+        if (edtMinPrice.text.toString().equals("") || editMaxPrice.text.toString().equals("")
+        ) {
+
+            return false
+        }
+
+        var minPr = edtMinPrice.text.toString().toInt()
+        var maxPr = editMaxPrice.text.toString().toInt()
+
+        if (minPr >= maxPr) {
+            Toast.makeText(context, "Invalid price", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     private fun findWithKey(key: String) {
@@ -211,6 +229,24 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
         Log.e("Size:", roomsFiltered?.size.toString() + "")
     }
 
+
+    private fun findWithKeyAndPrice(key: String, minPr: String, maxPr: String) {
+
+        if (checkPriceFilter()) {
+
+        }
+
+        listRoomCurrent = listRoom
+        val roomsFiltered: MutableList<Room>? = mutableListOf()
+        for (d in listRoomCurrent) {
+            if (d.getRoomName().toLowerCase().contains(key)) {
+                roomsFiltered?.add(d)
+            }
+        }
+        sumResult.text = roomsFiltered?.size.toString()
+        recyclerViewSuggest.adapter = roomsFiltered?.let { RoomAdapter(it, this, 1) }
+        Log.e("Size:", roomsFiltered?.size.toString() + "")
+    }
 
     override fun onSuccess(result: String?) {
         val arrayList = NetWorkUtils.jsonToRoomList(result)
@@ -228,27 +264,30 @@ class SearchFragment : Fragment(), RoomAdapter.Callback, HttpRequestTask.Callbac
     }
 
     override fun onItemClick(index: Int, roomInformation: Room) {
-        val detailRoomFragment = DetailRoomFragment.newInstance()
-        val bundle = Bundle()
+//        val detailRoomFragment = DetailRoomFragment.newInstance()
+//        val bundle = Bundle()
+//
+//        bundle.putSerializable("detail room", roomInformation)
+//        bundle.putString("name", roomInformation.getRoomName())
+//        detailRoomFragment.arguments = bundle
+//
+//        handler.postDelayed(hideNavigation, 100)
+//
+//        activity?.supportFragmentManager?.beginTransaction()
+//            ?.setCustomAnimations(
+//                R.animator.slide_up,
+//                R.animator.fade_out,
+//                R.animator.fade_in,
+//                R.animator.slide_down
+//            )
+//            ?.add(R.id.container, detailRoomFragment, "detail room")
+//            ?.addToBackStack("detail room")?.commit()
 
-        bundle.putSerializable("detail room", roomInformation)
-        bundle.putString("name", roomInformation.getRoomName())
-        detailRoomFragment.arguments = bundle
-
-        handler.postDelayed(hideNavigation, 100)
-
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.setCustomAnimations(
-                R.animator.slide_up,
-                R.animator.fade_out,
-                R.animator.fade_in,
-                R.animator.slide_down
-            )
-            ?.add(R.id.container, detailRoomFragment, "detail room")
-            ?.addToBackStack("detail room")?.commit()
+        val bundle = bundleOf("detail_room" to roomInformation)
+        findNavController().navigate(R.id.action_searchFragment_to_detailRoomFragment, bundle)
     }
 
     override fun onFavoriteClick(index: Int, roomInformation: Room) {
-        TODO("Not yet implemented")
+
     }
 }

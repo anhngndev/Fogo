@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    tools:context=".home.DetailRoomFragment">
+    tools:context=".ui.home.DetailRoomFragment">
 
 
     <ImageView

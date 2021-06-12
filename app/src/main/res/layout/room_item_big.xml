@@ -52,7 +52,7 @@
             android:layout_toEndOf="@id/icon_acreage"
             android:gravity="center_vertical"
             android:text="@string/logo"
-            android:textColor="@color/black_line"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size0"
             tools:ignore="SpUsage" />
 
@@ -78,7 +78,7 @@
             android:layout_toEndOf="@id/icon_price"
             android:gravity="center_vertical"
             android:text="@string/logo"
-            android:textColor="@color/black_line"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size0"
             tools:ignore="SpUsage" />
 
